@@ -1,0 +1,51 @@
+Algoritmo para generar una maya 3D a partir de una nube de puntos.
+
+En este caso se aisla una de las capas como nube de puntos.
+
+El concepto es similar al de tapizar o tirar una tela sobre una estructura y aspirar el aire para que esta se ajuste a los puntos del exterior de la nube.
+
+- Ir capa por capa identificando estos puntos y luego tratar de conectarlos segun los adyacentes en 3d nmax(3d)-adyacencia o probar otras adyacencias.
+
+Simplificación:
+    Las capas al ser cortadas tienen una estructura similar a esta diferenciando en su gran mayoria dos zonas una interior y otra exteriror que se acaban juntando en algun punto
+
+      ..............................      
+      ..............................      
+      ..............................      
+      .......                .......      
+      .......                .......      
+      .......                .......      
+      .......                .......      
+      .......                .......      
+      .......                .......      
+      .......                .......      
+      ..............................      
+      ..............................      
+      ..............................      
+
+        En algunos casos sobre todo cuando se aleja de la zona central y aparecen las ramificaciones no es un solo nucleo. por lo que lo ideal sería identificar todos los nucleos de esa capa y soltar un buscador de bordes en su interior. a parte de los exteriores.
+
+1- Identificación de bordes por cortes:
+    Si se parte desde la zona interior y a su vez desde la zona exterior hasta dar con los primeros puntos de la nube. el remplazo de . por : indica que esos puntos han sido encontrados. Estos se almacenan en una estructura que identifica a esa capa.
+
+      ::::::::::::::::::::::::::::::      
+      :............................:      
+      :......::::::::::::::::......:      
+      :.....:                :.....:      
+      :.....:                :.....:      
+      :.....:                :.....:      
+      :.....:                :.....:      
+      :.....:                :.....:      
+      :.....:                :.....:      
+      :.....:                :.....:      
+      :......::::::::::::::::......:      
+      :............................:      
+      ::::::::::::::::::::::::::::::      
+
+2- Conexión de cortes:
+    adyacencia en el plano de corte (se realiza primero)
+    adyacencia al cubo cercano, y si no encuentra va creciendo hasta que encuentra algun punto con el que conectarse.
+    ha de conectarse con el plano superior e inferior excepto en los casos primero y ultimo.
+
+    posibles problemas de la adyacencia
+        caso primero y ultimo. lo suyo es cerrar la maya para formar volumen con una tapa.
